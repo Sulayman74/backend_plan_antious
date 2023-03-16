@@ -1,5 +1,6 @@
 const pool = require('../data-base')
 
+// * get tous les avis
 exports.allAvis = async (req, res) => {
     try {
         const allAvis = await pool.query(
@@ -12,6 +13,8 @@ exports.allAvis = async (req, res) => {
         res.status(400).json({ "message": error.message })
     }
 }
+
+// * get les avis faibles
 exports.avisFaible = async (req, res) => {
     try {
         const avisFaible = await pool.query(

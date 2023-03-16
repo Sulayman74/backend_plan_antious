@@ -27,3 +27,16 @@ exports.avisFaible = async (req, res) => {
         res.status(400).json({ "message": error.message })
     }
 }
+exports.createReview = async (req, res) => {
+    const { fk_societe, fk_utilisateur, note, commentaire } = req.body
+    try {
+        const createReview = await pool.query(
+            `
+          INSERT INTO avis (fk_societe,fk_utilisateur,note,commentaire) VALUES ($1,$2,$3,$4) RETURNING *;
+            `, [fk_societe, fk_utilisateur, note, commentaire]
+        )
+        res.status(200).json({ "reponse": createReview.rows })
+    } catch (error) {
+        res.status(400).json({ "message": error.message })
+    }
+}
